@@ -3,7 +3,7 @@ package graph;
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("hi there Greg.");
+		System.out.println("hi there Gregory.");
 	}
 
 }
