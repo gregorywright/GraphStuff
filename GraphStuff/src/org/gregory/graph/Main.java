@@ -1,8 +1,17 @@
 package org.gregory.graph;
-import org.gregory.graph.*;
+//import org.gregory.graph.Graph.*;
+import static org.gregory.graph.Graph.Node;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Main {
 
+	public static void walk(Graph graph){
+		Queue<Node> nodeList = new LinkedList<Node>();
+		//Add in the start node.
+		nodeList.add(graph.nodes.elementAt(0));
+		
+	}
 	public static void main(String[] args) {
 		System.out.println("Building graph.");
 		Graph graph = new Graph("The Graph");
@@ -22,5 +31,8 @@ public class Main {
 			System.out.println("Adding edge from node " + source + " to node "+ dest);
 			graph.nodes.get(source).addEdge(graph.nodes.get(dest), 1.0);
 		}
+		
+		//Walk the graph.
+		walk(graph);
 	}
 }
