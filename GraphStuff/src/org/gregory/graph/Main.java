@@ -1,20 +1,13 @@
 package org.gregory.graph;
-//import org.gregory.graph.Graph.*;
 import static org.gregory.graph.Graph.Node;
-import java.util.LinkedList;
-import java.util.Queue;
+import static org.gregory.graph.Graph.Edge;
 
 public class Main {
 
-	public static void walk(Graph graph){
-		Queue<Node> nodeList = new LinkedList<Node>();
-		//Add in the start node.
-		nodeList.add(graph.nodes.elementAt(0));
-		
-	}
+
 	public static void main(String[] args) {
 		System.out.println("Building graph.");
-		Graph graph = new Graph("The Graph");
+		Graph graph = new Graph("The Graph", true);
 		final int numNodes = 5;
 		final int numEdges = 5;
 		for( int i=0 ; i<numNodes; i++) {
@@ -24,15 +17,28 @@ public class Main {
 		}
 		//Got a graph of node but no edges. Create some random ones.
 		for( int i=0 ; i<numEdges ; i++) {
-			int source = (int) (Math.random()*numNodes);
-			int dest = source;
-			while(dest == source)
-				dest = (int) (Math.random()*numNodes);
-			System.out.println("Adding edge from node " + source + " to node "+ dest);
-			graph.nodes.get(source).addEdge(graph.nodes.get(dest), 1.0);
+			boolean added = false;
+			while (!added) {
+				int source = (int) (Math.random()*numNodes);
+				int dest = source;
+				while(dest == source)
+					dest = (int) (Math.random()*numNodes);
+				Node srcNode = graph.nodes.get(source);
+				Node dstNode = graph.nodes.get(dest);
+				Edge newEdge = new Edge(dstNode, Math.floor(100*Math.random())+1/10);
+				if (!srcNode.edges.contains(newEdge)) {
+					System.out.println("Adding edge from node " + source + " to node "+ dest);
+					srcNode.edges.add(newEdge);
+					added = true;
+				}
+			}
 		}
 		
+		BFS walker = new BFS();
 		//Walk the graph.
-		walk(graph);
+		walker.walk(graph);
+		
+		//dump the graph.
+		graph.dumpDotFile("ttt.dot");
 	}
 }
