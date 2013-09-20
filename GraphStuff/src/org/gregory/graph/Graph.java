@@ -58,6 +58,9 @@ public class Graph {
 			FileWriter foo = new FileWriter(fileName);
 			foo.write("digraph \"" + this.name + "\" {\n");
 			for( Node node : nodes) {
+				if( node.edges.isEmpty()) {
+					foo.write("\""+node.name + "\"");
+				} 
 				for( Edge edge : node.edges) {
 					StringBuilder outString = new StringBuilder("\"" + node.name + "\" -> \"" + edge.toNode.name + "\" [label = \""+edge.weight+"\"");
 					if(edge.toNode.parent == node) {
